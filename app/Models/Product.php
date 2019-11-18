@@ -15,4 +15,8 @@ class Product extends Model {
     return $this->belongsToMany('App\Provider', 'products_providers');
   }
 
+  // Define the relation between Product and Provider model, whit a Has and belongs to many relation.
+  public function inventories() {
+    return $this->hasMany('App\Inventory');
+  }
 }

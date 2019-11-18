@@ -14,4 +14,4 @@ use Illuminate\Http\Request;
 */
 
 // Define route of API to: Check which products and how much can be listed from the inventory.
-Route::get('products', 'ProductController@index')->name('products.index');
+Route::get('inventory', 'InventoryController@index')->name('inventory.index');
