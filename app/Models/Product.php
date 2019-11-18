@@ -7,7 +7,7 @@ class Product extends Model {
 
   // Define the relation between Product and Order model, whit a Has and belongs to many relation.
   public function orders() {
-    return $this->belongsToMany('App\Order', 'products_orders');
+    return $this->belongsToMany('App\Order', 'products_orders')->withPivot(["quantity"]);
   }
 
   // Define the relation between Product and Provider model, whit a Has and belongs to many relation.
@@ -18,5 +18,13 @@ class Product extends Model {
   // Define the relation between Product and Provider model, whit a Has and belongs to many relation.
   public function inventories() {
     return $this->hasMany('App\Inventory');
+  }
+
+  public static function getMostSelledProductsByDate($date) {
+    return Product::leftJoin('products_orders', 'products.id', '=', 'products_orders.product_id')
+      ->leftJoin('orders', 'products_orders.order_id', '=', 'orders.id')
+      ->where('orders.deliverDate', $date)
+      ->orderBy('products_orders.quantity', 'desc')
+      ->get(['products.id', 'products.name', 'products_orders.quantity']);
   }
 }

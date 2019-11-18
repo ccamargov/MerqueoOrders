@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration {
        * it is defined as an integer and at the backend level the allowed options are limited.
       */
       $table->smallInteger('priority');
-      $table->string('address', 60);
+      $table->string('address', 100);
       $table->string('personName', 60);
       $table->date('deliverDate');
       $table->timestamps();
