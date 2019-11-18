@@ -32,8 +32,6 @@ class ProductAPITest extends TestCase {
         [
           'id',
           'name',
-          'quantity',
-          'availableDate',
           'created_at',
           'updated_at'
         ]
