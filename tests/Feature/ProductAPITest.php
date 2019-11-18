@@ -120,4 +120,26 @@ class ProductAPITest extends TestCase {
     $response->assertStatus(200);
   }
 
+  /**
+   * Testing API to: Get the products inventary between two dates, after sales.
+   * Target: Check if the api returns Bad Request (400 code) if the user dont send the date_sales and date_revision query params.
+   *
+   * @return void
+   */
+  public function testApiInventoryUpdatedRouteStatusNoParams() {
+    $response = $this->get("api/inventory-updated");
+    $response->assertStatus(400);
+  }
+
+  /**
+   * Testing API to: Get the products inventary between two dates, after sales.
+   * Target: Check if the api returns Bad Request (400 code) if the user send the order_id query param.
+   *
+   * @return void
+   */
+  public function testApiInventoryUpdatedRouteStatusWithParams() {
+    $response = $this->call("GET", "api/inventory-updated", ["date_sales" => "1977-10-01", "date_revision" => "2019-10-10"]);
+    $response->assertStatus(200);
+  }
+
 }
