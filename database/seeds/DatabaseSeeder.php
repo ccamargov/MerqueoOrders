@@ -6,6 +6,7 @@ use App\Provider;
 use App\Order;
 use App\Inventory;
 use App\Carrier;
+use App\User;
 
 class DatabaseSeeder extends Seeder {
   /**
@@ -87,8 +88,15 @@ class DatabaseSeeder extends Seeder {
         $carriers_collection->random()->orders()->attach($orders_collection->random());
       }
     }
+
+    // Filling user table to get api_key
+    if (User::count() == 0) {
+      echo "Inserting dummy data for Users model...\n";
+      factory(User::class, $def_records_to_inser)->create();
+    }
   }
 
+  // Function to validate empty records from ammount.
   private function emptyRecords($count) {
     return $count <= 0;
   }

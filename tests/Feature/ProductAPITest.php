@@ -15,7 +15,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiMostSoldRouteStatusNoDate() {
-    $response = $this->get("api/most-products-sold");
+    $response = $this->call("GET", "api/v1/most-products-sold", ["api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(400);
   }
 
@@ -26,7 +26,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiMostSoldRouteStatusWithDate() {
-    $response = $this->call("GET", "api/most-products-sold", ["date" => "1977-10-01"]);
+    $response = $this->call("GET", "api/v1/most-products-sold", ["date" => "1977-10-01", "api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(200);
   }
 
@@ -37,7 +37,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiMostSoldFormat() {
-    $response = $this->call("GET", "api/most-products-sold", ["date" => "1977-10-01"]);
+    $response = $this->call("GET", "api/v1/most-products-sold", ["date" => "1977-10-01", "api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     // If the API returns data validate complete structure
     if (count($response->json()) > 0) {
       $response->assertJsonStructure([
@@ -60,7 +60,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiLessSoldRouteStatusNoDate() {
-    $response = $this->get("api/less-products-sold");
+    $response = $this->call("GET", "api/v1/less-products-sold", ["api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(400);
   }
 
@@ -71,7 +71,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiLessSoldRouteStatusWithDate() {
-    $response = $this->call("GET", "api/less-products-sold", ["date" => "1977-10-01"]);
+    $response = $this->call("GET", "api/v1/less-products-sold", ["date" => "1977-10-01", "api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(200);
   }
 
@@ -82,7 +82,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiLessSoldFormat() {
-    $response = $this->call("GET", "api/less-products-sold", ["date" => "1977-10-01"]);
+    $response = $this->call("GET", "api/v1/less-products-sold", ["date" => "1977-10-01", "api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     // If the API returns data validate complete structure
     if (count($response->json()) > 0) {
       $response->assertJsonStructure([
@@ -105,7 +105,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiProdAvailabilityRouteStatusNoOrder() {
-    $response = $this->get("api/products-availability");
+    $response = $this->call("GET", "api/v1/products-availability", ["api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(400);
   }
 
@@ -116,7 +116,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiProdAvailabilityRouteStatusWithOrder() {
-    $response = $this->call("GET", "api/products-availability", ["order_id" => 2]);
+    $response = $this->call("GET", "api/v1/products-availability", ["order_id" => 2, "api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(200);
   }
 
@@ -127,7 +127,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiInventoryUpdatedRouteStatusNoParams() {
-    $response = $this->get("api/inventory-updated");
+    $response = $this->call("GET", "api/v1/inventory-updated", ["api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(400);
   }
 
@@ -138,7 +138,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiInventoryUpdatedRouteStatusWithParams() {
-    $response = $this->call("GET", "api/inventory-updated", ["date_sales" => "1977-10-01", "date_revision" => "2019-10-10"]);
+    $response = $this->call("GET", "api/v1/inventory-updated", ["date_sales" => "1977-10-01", "date_revision" => "2019-10-10", "api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(200);
   }
 
