@@ -17,3 +17,5 @@ use Illuminate\Http\Request;
 Route::get('inventory', 'InventoryController@index')->name('inventory.index');
 // Define route of API to: Consult the products that must be listed by transporters, and to which transporter each order corresponds.
 Route::get('carriers-orders', 'CarrierController@index')->name('carriers.index');
+// Define route of API to: Consult the most selled products by date
+Route::get('most-selled-products', 'ProductController@getMostSelledProducts')->name('products.most-selled-products');

@@ -19,4 +19,12 @@ class Product extends Model {
   public function inventories() {
     return $this->hasMany('App\Inventory');
   }
+
+  public static function getMostSelledProductsByDate($date) {
+    return Product::leftJoin('products_orders', 'products.id', '=', 'products_orders.product_id')
+      ->leftJoin('orders', 'products_orders.order_id', '=', 'orders.id')
+      ->where('orders.deliverDate', $date)
+      ->orderBy('products_orders.quantity', 'desc')
+      ->get(['products.id', 'products.name', 'products_orders.quantity']);
+  }
 }
