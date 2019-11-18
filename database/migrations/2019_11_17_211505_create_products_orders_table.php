@@ -13,8 +13,8 @@ class CreateProductsOrdersTable extends Migration {
   public function up() {
     Schema::create('products_orders', function (Blueprint $table) {
       // Basic schema defintion
-      $table->bigInteger('product_id')->unsigned()->nullable();
-      $table->bigInteger('order_id')->unsigned()->nullable();
+      $table->bigInteger('product_id')->unsigned();
+      $table->bigInteger('order_id')->unsigned();
     });
 
     Schema::table('products_orders', function($table) {
