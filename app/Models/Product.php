@@ -41,4 +41,17 @@ class Product extends Model {
       ->get(['products.id', 'products.name', 'products_orders.quantity as order_quantity', 'inventories.quantity as inventory_quantity']);
   }
 
+  // Returns the products inventary between two dates, after sales.
+  public static function getInventaryAfterSales($date_sales, $date_revision) {
+    return Product::leftJoin('products_orders', 'products.id', '=', 'products_orders.product_id')
+      ->leftJoin('orders', 'products_orders.order_id', '=', 'orders.id')
+      ->leftJoin('inventories', 'inventories.product_id', '=', 'products.id')
+      ->where([
+        ['orders.deliverDate', '=', $date_sales],
+        ['inventories.availableDate', '=', $date_revision]
+      ])
+      ->selectRaw('products.id, products.name, (products_orders.quantity - inventories.quantity) as calculated_cuantity')
+      ->get();
+  }
+
 }

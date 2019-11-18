@@ -60,6 +60,28 @@ class ProductController extends Controller {
   }
 
   /**
+   * Display a listing of products updated in inventary, between two dates (Checking in inventary an orders table).
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getInventaryAfterSales(Request $request) {
+    // Validate request
+    $validator = Validator::make($request->all(), [
+      'date_sales' => 'required',
+      'date_revision' => 'required'
+    ]);
+    // If validator fails, return json with errors array with 400 (Bad Request)
+    if ($validator->fails()) {
+      return response()->json(['errors' => $validator->errors()], 400);
+    }
+     // If the validator does not fail then make the model query
+    else {
+      $products = Product::getInventaryAfterSales($request->get('date_sales'), $request->get('date_revision'));
+      return $products;
+    }
+  }
+
+  /**
    * Shared function that returns listing of products sold in a order, by date.
    * Uses order pattern to define the list.
    *
