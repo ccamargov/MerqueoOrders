@@ -7,7 +7,7 @@ class Product extends Model {
 
   // Define the relation between Product and Order model, whit a Has and belongs to many relation.
   public function orders() {
-    return $this->belongsToMany('App\Order', 'products_orders');
+    return $this->belongsToMany('App\Order', 'products_orders')->withPivot(["quantity"]);
   }
 
   // Define the relation between Product and Provider model, whit a Has and belongs to many relation.
