@@ -15,3 +15,5 @@ use Illuminate\Http\Request;
 
 // Define route of API to: Check which products and how much can be listed from the inventory.
 Route::get('inventory', 'InventoryController@index')->name('inventory.index');
+// Define route of API to: Consult the products that must be listed by transporters, and to which transporter each order corresponds.
+Route::get('carriers-orders', 'CarrierController@index')->name('carriers.index');
