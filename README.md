@@ -22,13 +22,38 @@ Este proyecto es un componente backend encargado de exponer APIs RestFULL, las c
 
 ## Listado de APIs expuestas:
 ```
-GET | api/v1/carriers-orders       | carriers.index                 | api,auth:api |
-GET | api/v1/inventory             | inventory.index                | api,auth:api |
-GET | api/v1/inventory-updated     | products.inventory-updated     | api,auth:api |
-GET | api/v1/less-products-sold    | products.less-products-sold    | api,auth:api |
-GET | api/v1/most-products-sold    | products.most-products-sold    | api,auth:api |
-GET | api/v1/products-availability | products.products-availability | api,auth:api |
+| 1 | GET | api/v1/carriers-orders       | carriers.index                 | api,auth:api |
+| 2 | GET | api/v1/inventory             | inventory.index                | api,auth:api |
+| 3 | GET | api/v1/inventory-updated     | products.inventory-updated     | api,auth:api |
+| 4 | GET | api/v1/less-products-sold    | products.less-products-sold    | api,auth:api |
+| 5 | GET | api/v1/most-products-sold    | products.most-products-sold    | api,auth:api |
+| 6 | GET | api/v1/products-availability | products.products-availability | api,auth:api |
 ```
+Listado de parámetros de entrada (Usar como referencia el número de la primera columna de la tabla anterior):
+
+### API 3
+- Campo 1: date_sales
+- Formato: "YYYY-mm-DD"
+- Tipo: QueryParam
+
+- Campo 2: date
+- Formato: "YYYY-mm-DD"
+- Tipo: QueryParam
+
+### API 4
+- Campo 1: date
+- Formato: "YYYY-mm-DD"
+- Tipo: QueryParam
+
+### API 5
+- Campo 1: date
+- Formato: "YYYY-mm-DD"
+- Tipo: QueryParam
+
+### API 6
+- Campo 1: order_id
+- Formato: número
+- Tipo: QueryParam
 
 ## Modelo de datos
 
