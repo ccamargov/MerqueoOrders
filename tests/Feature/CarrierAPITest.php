@@ -15,7 +15,7 @@ class CarrierAPITest extends TestCase {
    * @return void
    */
   public function testApiRouteStatus() {
-    $response = $this->get("api/carriers-orders");
+    $response = $this->call("GET", "api/v1/carriers-orders", ["api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     $response->assertStatus(200);
   }
 
@@ -26,7 +26,7 @@ class CarrierAPITest extends TestCase {
    * @return void
    */
   public function testApiFormat() {
-    $response = $this->get("api/carriers-orders");
+    $response = $this->call("GET", "api/v1/carriers-orders", ["api_token" => "0g3AubZqweE81ufvZYHYQpmjdk1VzriAlyEgiOpqmBJIerMKzjNNXs4YUsTt"]);
     // If the API returns data validate complete structure
     if (count($response->json()) > 0) {
       $response->assertJsonStructure([

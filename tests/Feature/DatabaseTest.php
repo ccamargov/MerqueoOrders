@@ -9,6 +9,7 @@ use Tests\TestCase;
 use App\Product;
 use App\Provider;
 use App\Order;
+use App\Inventory;
 
 class DatabaseTest extends TestCase {
 
@@ -21,6 +22,7 @@ class DatabaseTest extends TestCase {
     $this->assertTrue(Product::all() != null);
     $this->assertTrue(Provider::all() != null);
     $this->assertTrue(Order::all() != null);
+    $this->assertTrue(Inventory::all() != null);
   }
 
 }
