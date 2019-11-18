@@ -13,6 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Define route of API to: Check which products and how much can be listed from the inventory.
+Route::get('products', 'ProductController@index')->name('products.index');
