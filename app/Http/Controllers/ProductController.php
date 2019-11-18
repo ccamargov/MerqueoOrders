@@ -11,11 +11,26 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller {
 
   /**
-   * Display a listing of most selled products in a order, by date.
-   *
+   * Display a listing of most products sold in a order, by date.
+   * Uses order pattern to define the list.
+   * 
    * @return \Illuminate\Http\Response
    */
   public function getMostSelledProducts(Request $request) {
+    return $this->getOrderedProductsSoldByDate($request, "DESC");
+  }
+
+  /**
+   * Display a listing of less products sold in a order, by date.
+   * Uses order pattern to define the list.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getLessSelledProducts(Request $request) {
+    return $this->getOrderedProductsSoldByDate($request, "ASC");
+  }
+
+  private function getOrderedProductsSoldByDate(Request $request, $order) {
     // Validate request
     $validator = Validator::make($request->all(), [
       'date' => 'required'
@@ -26,7 +41,7 @@ class ProductController extends Controller {
     }
      // If the validator does not fail then make the model query
     else {
-      $products = Product::getMostSelledProductsByDate($request->get('date'));
+      $products = Product::getOrderedSelledProductsByDate($request->get('date'), $order);
       // Return plain result from model query
       return $products;
     }
