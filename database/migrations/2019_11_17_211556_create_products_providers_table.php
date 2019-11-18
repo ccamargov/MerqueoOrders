@@ -13,8 +13,8 @@ class CreateProductsProvidersTable extends Migration {
   public function up() {
     Schema::create('products_providers', function (Blueprint $table) {
       // Basic schema defintion
-      $table->bigInteger('product_id')->unsigned()->nullable();
-      $table->bigInteger('provider_id')->unsigned()->nullable();
+      $table->bigInteger('product_id')->unsigned();
+      $table->bigInteger('provider_id')->unsigned();
     });
 
     Schema::table('products_providers', function($table) {
