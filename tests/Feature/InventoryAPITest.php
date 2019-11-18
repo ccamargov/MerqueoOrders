@@ -27,21 +27,27 @@ class InventoryAPITest extends TestCase {
    */
   public function testApiFormat() {
     $response = $this->get("api/inventory");
-    $response->assertJsonStructure([
-      'data' => [
-        [
-          'id',
-          'quantity',
-          'availableDate',
-          'product' => [
+    // If the API returns data validate complete structure
+    if (count($response->json()) > 0) {
+      $response->assertJsonStructure([
+        'data' => [
+          [
             'id',
-            'name'
-          ],
-          'created_at',
-          'updated_at'
+            'quantity',
+            'availableDate',
+            'product' => [
+              'id',
+              'name'
+            ],
+            'created_at',
+            'updated_at'
+          ]
         ]
-      ]
-    ]);
+      ]);
+    } else {
+      // If the API not returns data validate empty structure.
+      $this->assertJsonStructure([]);
+    }
   }
 
 }

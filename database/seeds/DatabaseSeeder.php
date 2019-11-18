@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder {
       echo "Inserting dummy data for ProductOrders pivot model...\n";
       for ($i = 0; $i <= $def_records_to_inser; $i++) {
         // Adding orders tho random product.
-        $products_collection->random()->orders()->attach($orders_collection->random());
+        $products_collection->random()->orders()->attach($orders_collection->random(), array('quantity' => rand(1, 10)));
       }
     }
 
