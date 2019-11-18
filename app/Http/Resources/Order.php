@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Product as ProductResource;
 
 class Order extends JsonResource {
   /**
@@ -18,8 +19,7 @@ class Order extends JsonResource {
       'address' => $this->address,
       'personName' => $this->personName,
       'deliverDate' => $this->deliverDate,
-      'updated_at' => $this->updated_at,
-      'created_at' => $this->created_at
+      'products' => ProductResource::collection($this->products)
     ];
   }
 }

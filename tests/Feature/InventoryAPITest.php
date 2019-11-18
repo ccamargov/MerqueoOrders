@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ProductAPITest extends TestCase {
+class InventoryAPITest extends TestCase {
 
   /**
    * Testing API to: Check which products and how much can be listed from the inventory.
@@ -15,7 +15,7 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiRouteStatus() {
-    $response = $this->get("api/products");
+    $response = $this->get("api/inventory");
     $response->assertStatus(200);
   }
 
@@ -26,12 +26,17 @@ class ProductAPITest extends TestCase {
    * @return void
    */
   public function testApiFormat() {
-    $response = $this->get("api/products");
+    $response = $this->get("api/inventory");
     $response->assertJsonStructure([
       'data' => [
         [
           'id',
-          'name',
+          'quantity',
+          'availableDate',
+          'product' => [
+            'id',
+            'name'
+          ],
           'created_at',
           'updated_at'
         ]

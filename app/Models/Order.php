@@ -10,4 +10,9 @@ class Order extends Model {
     return $this->belongsToMany('App\Product', 'products_orders');
   }
 
+  // Define the relation between Carrier and Order model, whit a Has and belongs to many relation.
+  public function carriers() {
+    return $this->belongsToMany('App\Carrier', 'carriers_orders');
+  }
+
 }
