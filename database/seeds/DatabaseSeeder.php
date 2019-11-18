@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Product;
 use App\Provider;
 use App\Order;
+use App\Inventory;
 
 class DatabaseSeeder extends Seeder {
   /**
@@ -15,35 +16,34 @@ class DatabaseSeeder extends Seeder {
     // Default values
     $def_records_to_inser = 25;
 
-    // Store the content of records to avoid multiple queries to the database.
-    $products_count = Product::count();
-    $providers_count = Provider::count();
-    $orders_count = Order::count();
-
     // Pivot tables names
     $pivot_prod_provid_tbl = 'products_providers';
     $pivot_prod_orders_tbl = 'products_orders';
 
     // Filling Products table.
-    if ($this->emptyRecords($products_count)) {
+    if ($this->emptyRecords(Product::count())) {
+      echo "Inserting dummy data for Product model...";
       factory(Product::class, $def_records_to_inser)->create();
     }
 
     // Filling Providers table.
-    if ($this->emptyRecords($providers_count)) {
+    if ($this->emptyRecords(Provider::count())) {
+      echo "Inserting dummy data for Provider model...";
       factory(Provider::class, $def_records_to_inser)->create();
     }
 
     // Filling Orders table.
-    if ($this->emptyRecords($orders_count)) {
+    if ($this->emptyRecords(Order::count())) {
+      echo "Inserting dummy data for Order model...";
       factory(Order::class, $def_records_to_inser)->create();
     }
 
     // Filling pivot tables if in the database are store records to products and providers model, and the pivot table is empty.
-    if (!$this->emptyRecords($products_count) && !$this->emptyRecords($providers_count) &&
+    if (!$this->emptyRecords(Product::count()) && !$this->emptyRecords(Provider::count()) &&
         $this->emptyRecords(DB::table($pivot_prod_provid_tbl)->get()->count())) {
       $products_collection = Product::all();
       $providers_collection = Provider::all();
+      echo "Inserting dummy data for ProductProviders pivot model...";
       for ($i = 0; $i <= $def_records_to_inser; $i++) {
         // Adding providers tho random product.
         $products_collection->random()->providers()->attach($providers_collection->random());
@@ -51,14 +51,21 @@ class DatabaseSeeder extends Seeder {
     }
 
     // Filling pivot tables if in the database are store records to products and orders model, and the pivot table is empty.
-    if (!$this->emptyRecords($products_count) && !$this->emptyRecords($orders_count) &&
+    if (!$this->emptyRecords(Product::count()) && !$this->emptyRecords(Order::count()) &&
         $this->emptyRecords(DB::table($pivot_prod_orders_tbl)->get()->count())) {
       $products_collection = Product::all();
       $orders_collection = Order::all();
+      echo "Inserting dummy data for ProductOrders pivot model...";
       for ($i = 0; $i <= $def_records_to_inser; $i++) {
         // Adding orders tho random product.
         $products_collection->random()->orders()->attach($orders_collection->random());
       }
+    }
+
+    // Filling Inventories table.
+    if (!$this->emptyRecords(Product::count()) && $this->emptyRecords(Inventory::count())) {
+      echo "Inserting dummy data for Inventory model...";
+      factory(Inventory::class, $def_records_to_inser)->create();
     }
   }
 
