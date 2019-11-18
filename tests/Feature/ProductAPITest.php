@@ -98,4 +98,26 @@ class ProductAPITest extends TestCase {
     }
   }
 
+  /**
+   * Testing API to: Get the list of products by order, with their respective availability.
+   * Target: Check if the api returns Bad Request (400 code) if the user dont send the order_id query param.
+   *
+   * @return void
+   */
+  public function testApiProdAvailabilityRouteStatusNoOrder() {
+    $response = $this->get("api/products-availability");
+    $response->assertStatus(400);
+  }
+
+  /**
+   * Testing API to: Get the list of products by order, with their respective availability.
+   * Target: Check if the api returns Bad Request (400 code) if the user send the order_id query param.
+   *
+   * @return void
+   */
+  public function testApiProdAvailabilityRouteStatusWithOrder() {
+    $response = $this->call("GET", "api/products-availability", ["order_id" => 2]);
+    $response->assertStatus(200);
+  }
+
 }

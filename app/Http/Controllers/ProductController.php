@@ -30,6 +30,41 @@ class ProductController extends Controller {
     return $this->getOrderedProductsSoldByDate($request, "ASC");
   }
 
+  /**
+   * Display a listing of products by order, with their respective availability.
+   * Uses operator pattern to define the list.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getProductsAvailability(Request $request) {
+    // Validate request
+    $validator = Validator::make($request->all(), [
+      'order_id' => 'required'
+    ]);
+    // If validator fails, return json with errors array with 400 (Bad Request)
+    if ($validator->fails()) {
+      return response()->json(['errors' => $validator->errors()], 400);
+    }
+     // If the validator does not fail then make the model query
+    else {
+      // Return available products and save records to make advanced JSON Object.
+      $products_available = Product::getProductsAvailability($request->get('order_id'), '<=');
+      // Return non available products and save records to make advanced JSON Object.
+      $products_non_available = Product::getProductsAvailability($request->get('order_id'), '>');
+      // Return plain result from model query
+      return [
+        "available" => $products_available,
+        "non-available" => $products_non_available
+      ];
+    }
+  }
+
+  /**
+   * Shared function that returns listing of products sold in a order, by date.
+   * Uses order pattern to define the list.
+   *
+   * @return \Illuminate\Http\Response
+   */
   private function getOrderedProductsSoldByDate(Request $request, $order) {
     // Validate request
     $validator = Validator::make($request->all(), [
